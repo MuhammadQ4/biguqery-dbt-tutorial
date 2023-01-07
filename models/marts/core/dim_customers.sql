@@ -1,29 +1,20 @@
-{{
-    config(
-        materialized='table'
-    )
-}}
-
 with customers as (
 
-    select
-        id as customer_id,
-        first_name,
-        last_name
-
-    from `dbt-tutorial.jaffle_shop.customers`
+    select 
+        * 
+    
+    from 
+        {{ ref('stg_customers')}}
 
 ),
 
 orders as (
 
-    select
-        id as order_id,
-        user_id as customer_id,
-        order_date,
-        status
-
-    from `dbt-tutorial.jaffle_shop.orders`
+    select 
+        * 
+        
+    from 
+        {{ ref('stg_orders') }}
 
 ),
 
@@ -36,9 +27,11 @@ customer_orders as (
         max(order_date) as most_recent_order_date,
         count(order_id) as number_of_orders
 
-    from orders
+    from 
+        orders
 
-    group by 1
+    group by 
+        customer_id
 
 ),
 
@@ -53,10 +46,14 @@ final as (
         customer_orders.most_recent_order_date,
         coalesce(customer_orders.number_of_orders, 0) as number_of_orders
 
-    from customers
-
-    left join customer_orders using (customer_id)
+    from 
+        customers
+        left join customer_orders using (customer_id)
 
 )
 
-select * from final
+select 
+    * 
+
+from 
+    final
