@@ -7,7 +7,7 @@ with orders as (
         status
 
     from 
-        `dbt-tutorial.jaffle_shop.orders`
+        {{ source('jaffle_shop', 'orders') }}
 )
 
 select 

@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: jaffle_shop
+    database: dbt-tutorial
+    schema: jaffle_shop # if we don't sepcify the schema, dbt will use the source name as the schema name
+    tables:
+      - name: customers
+      - name: orders
