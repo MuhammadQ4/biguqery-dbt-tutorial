@@ -5,15 +5,19 @@ sources:
     database: dbt-tutorial
     tables:
       - name: customers
+        description:  The raw customers table.
         columns:
           - name: id
+            description:  The primary key for customers.
             tests:
               - unique
               - not_null
             
       - name: orders
+        description: The raw orders tables.
         columns:
           - name: id
+            description: The primary key for orders.
             tests:
               - unique              
               - not_null        
